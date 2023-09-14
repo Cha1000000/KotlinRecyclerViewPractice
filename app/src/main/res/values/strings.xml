@@ -8,4 +8,6 @@
     <string name="task2_screen_title">Добавить, удалить, обновить</string>
     <string name="button_task1_text">Задание 1</string>
     <string name="button_task2_text">Задание 2</string>
+    <string name="button_collect_input_text">Собрать ввод</string>
+    <string name="text_input_hint">Ввести текст</string>
 </resources>

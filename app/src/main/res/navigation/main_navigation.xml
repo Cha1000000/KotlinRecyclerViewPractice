@@ -11,19 +11,19 @@
         android:label="FragmentMainSelectTask"
         tools:layout="@layout/fragment_main_select_task">
         <action
-            android:id="@+id/action_main_to_fragmentRecyclerViewCombineInputs"
-            app:destination="@id/fragmentRecyclerViewCombineInputs" />
+            android:id="@+id/action_main_to_fragmentRecyclerViewCollectInputs"
+            app:destination="@id/fragmentRecyclerViewCollectInputs" />
         <action
             android:id="@+id/action_main_to_fragmentRecyclerViewWithAddDeleteRefresh"
             app:destination="@id/fragmentRecyclerViewWithAddDeleteRefresh" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentRecyclerViewCombineInputs"
-        android:name="com.kotlin.recyclerview.practice.screens.fragments.task1.FragmentRecyclerViewCombineInputs"
-        android:label="FragmentRecyclerViewCombineInputs"
-        tools:layout="@layout/fragment_recyclerview_combine_inputs" >
+        android:id="@+id/fragmentRecyclerViewCollectInputs"
+        android:name="com.kotlin.recyclerview.practice.screens.fragments.task1.FragmentRecyclerViewCollectInputs"
+        android:label="FragmentRecyclerViewCollectInputs"
+        tools:layout="@layout/fragment_recyclerview_collect_inputs" >
         <action
-            android:id="@+id/action_fragmentRecyclerViewCombineInputs_to_main"
+            android:id="@+id/action_fragmentRecyclerViewCollectInputs_to_main"
             app:destination="@id/fragmentMainSelectTask" />
     </fragment>
     <fragment

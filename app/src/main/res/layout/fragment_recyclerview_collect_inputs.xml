@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorOnBackground"
+        android:orientation="vertical"
+        tools:context=".screens.fragments.task1.FragmentRecyclerViewCollectInputs">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_task_1"
+            style="@style/AppToolbar"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/task1_screen_title" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_task_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
+                android:clipToPadding="false"
+                android:paddingBottom="70dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:itemCount="10"
+                tools:listitem="@layout/viewholder_textinput_item" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="16dp"
+            android:textSize="20sp"
+            android:text="@string/button_collect_input_text" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

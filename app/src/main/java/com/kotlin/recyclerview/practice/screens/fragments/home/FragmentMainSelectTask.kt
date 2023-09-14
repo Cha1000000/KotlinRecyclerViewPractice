@@ -22,7 +22,7 @@ class FragmentMainSelectTask : Fragment() {
             false
         )
         binding.buttonTask1.setOnClickListener {
-            findNavController().navigate(R.id.action_main_to_fragmentRecyclerViewCombineInputs)
+            findNavController().navigate(R.id.action_main_to_fragmentRecyclerViewCollectInputs)
         }
         binding.buttonTask2.setOnClickListener {
             findNavController().navigate(R.id.action_main_to_fragmentRecyclerViewWithAddDeleteRefresh)

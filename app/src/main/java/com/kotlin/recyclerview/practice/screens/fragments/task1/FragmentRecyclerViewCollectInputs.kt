@@ -8,11 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kotlin.recyclerview.practice.R
-import com.kotlin.recyclerview.practice.databinding.FragmentRecyclerviewCombineInputsBinding
+import com.kotlin.recyclerview.practice.databinding.FragmentRecyclerviewCollectInputsBinding
 
-class FragmentRecyclerViewCombineInputs : Fragment() {
+class FragmentRecyclerViewCollectInputs : Fragment() {
 
-    private lateinit var binding: FragmentRecyclerviewCombineInputsBinding
+    private lateinit var binding: FragmentRecyclerviewCollectInputsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,12 +21,12 @@ class FragmentRecyclerViewCombineInputs : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_recyclerview_combine_inputs,
+            R.layout.fragment_recyclerview_collect_inputs,
             container,
             false
         )
         binding.toolbarTask1.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_fragmentRecyclerViewCombineInputs_to_main)
+            findNavController().navigate(R.id.action_fragmentRecyclerViewCollectInputs_to_main)
         }
         return binding.root
     }
