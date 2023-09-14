@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorOnBackground"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".screens.fragments.home.FragmentMainSelectTask">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            style="@style/AppToolbar"
+            app:title="@string/app_title" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:gravity="center"
+            android:text="@string/select_task_text"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            android:textColor="?attr/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/task1_label_title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button_task_1"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/button_task1_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/task2_label_title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button_task_2"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/button_task2_text"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</layout>
