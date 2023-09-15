@@ -1,6 +1,8 @@
 package com.kotlin.recyclerview.practice.data
 
+import java.io.Serializable
+
 data class TextItemData(
     val id: Long,
-    val text: String,
-)
+    var text: String,
+) : Serializable

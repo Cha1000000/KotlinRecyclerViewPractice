@@ -29,13 +29,13 @@
                 android:clipToPadding="false"
                 android:paddingBottom="70dp"
                 app:layoutManager="LinearLayoutManager"
-                tools:itemCount="10"
+                tools:itemCount="4"
                 tools:listitem="@layout/viewholder_textinput_item" />
 
         </FrameLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_collect_inputs"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginBottom="10dp"
