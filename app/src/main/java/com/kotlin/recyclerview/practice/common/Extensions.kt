@@ -2,7 +2,11 @@ package com.kotlin.recyclerview.practice.common
 
 import android.content.Context
 import android.content.DialogInterface
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.cardview.widget.CardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 fun Context.showAlertDialog(
@@ -49,4 +53,31 @@ private fun onExitConfirmKeyPressed(
         dialog.dismiss()
     }
     return true
+}
+
+fun CardView.setBackgroundColorRes(@ColorRes colorRes: Int) {
+    setCardBackgroundColor(context.getColor(colorRes))
+}
+
+
+/**
+ * Extension method to show a keyboard for View.
+ */
+fun View.showKeyboardImplicit() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    this.requestFocus()
+    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+/**
+ * Try to hide the keyboard and returns whether it worked
+ * https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
+ */
+fun View.hideKeyboard(): Boolean {
+    try {
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+    } catch (_: RuntimeException) { }
+    return false
 }

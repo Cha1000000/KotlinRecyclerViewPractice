@@ -15,7 +15,7 @@ import com.kotlin.recyclerview.practice.databinding.FragmentRecyclerviewCollectI
 class FragmentRecyclerViewCollectInputs : Fragment() {
 
     private lateinit var binding: FragmentRecyclerviewCollectInputsBinding
-    private val textItems = initTextInputItems()
+    private var textItems = initTextInputItems()
     private val textItemAdapter = TextInputItemsAdapter()
 
     override fun onCreateView(
@@ -44,14 +44,24 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
         textItemAdapter.submitList(textItems)
         buttonCollectInputs.setOnClickListener {
             var collectedText = ""
-            textItemAdapter.currentList
-                .onEachIndexed { index, textItemData ->
-                    collectedText += "${index + 1}. ${textItemData.text}\n"
-                }
+            val dataList = textItemAdapter.currentList.toList()
+            dataList.onEachIndexed { index, textItemData ->
+                collectedText += "${index + 1}. ${textItemData.text}\n"
+            }
             context?.showAlertDialog(
                 titleRes = R.string.result_alert_title,
-                msg = collectedText,
+                msg = if (dataList.all { it.text.isBlank() })
+                    getString(R.string.empty_data) else collectedText,
             )
         }
+    }
+
+    private fun deleteSelectedItems() {
+        val selectedItemPositions = textItemAdapter.getSelectedItemPositions()
+        selectedItemPositions.sortedDescending().forEach {
+            textItems = textItems.filterIndexed { index, _ -> index != it }
+            textItemAdapter.notifyItemRemoved(it)
+        }
+        textItemAdapter.clearSelections()
     }
 }

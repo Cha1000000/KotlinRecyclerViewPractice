@@ -11,4 +11,5 @@
     <string name="button_collect_input_text">Собрать ввод</string>
     <string name="text_input_hint">Ввести текст</string>
     <string name="result_alert_title">Результат</string>
+    <string name="empty_data">Данные отсутствуют</string>
 </resources>
