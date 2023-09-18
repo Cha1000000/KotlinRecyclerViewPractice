@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.recyclerview.practice.R
+import com.kotlin.recyclerview.practice.common.hideKeyboard
 import com.kotlin.recyclerview.practice.common.setVisible
 import com.kotlin.recyclerview.practice.common.showAlertDialog
 import com.kotlin.recyclerview.practice.data.initTextInputItems
@@ -71,7 +72,8 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
         }
         textItemAdapter.submitList(textItems)
 
-        buttonCollectInputs.setOnClickListener {
+        buttonCollectInputs.setOnClickListener { button ->
+            button.hideKeyboard()
             var collectedText = ""
             val dataList = textItemAdapter.currentList.toList()
             dataList.onEachIndexed { index, textItemData ->
@@ -85,21 +87,28 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
         }
 
         deleteFab.apply {
-            hide()
+            //hide()
             setOnClickListener {
                 isParentFabOpened = !isParentFabOpened
                 additionalFabContainer.setVisible(isParentFabOpened)
                 if (isParentFabOpened) extend() else shrink()
             }
         }
+        deleteSelectedFab.setOnClickListener { deleteSelectedItems() }
+        deleteAllFab.setOnClickListener { deleteAll() }
     }
 
     private fun deleteSelectedItems() {
-        val selectedItemPositions = textItemAdapter.getSelectedItemPositions()
-        selectedItemPositions.sortedDescending().forEach {
-            textItems = textItems.filterIndexed { index, _ -> index != it }
-            textItemAdapter.notifyItemRemoved(it)
+        val selectedItemPositions = textItemAdapter.getSelectedItemPositions().sortedDescending()
+        textItems = textItems.filterIndexed { index, _ ->
+            !selectedItemPositions.contains(index)
         }
+        textItemAdapter.submitList(textItems)
+        textItemAdapter.clearSelections()
+    }
+
+    private fun deleteAll() {
+        textItemAdapter.submitList(null)
         textItemAdapter.clearSelections()
     }
 }
