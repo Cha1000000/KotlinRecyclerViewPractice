@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/recycler_view_task_1_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorOnBackground"
@@ -32,16 +33,93 @@
                 tools:itemCount="4"
                 tools:listitem="@layout/viewholder_textinput_item" />
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/additional_fab_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="@dimen/layout_margin_normal"
+                android:layout_marginBottom="80dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/layout_margin_small"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:text="@string/delete_selected"
+                        android:textColor="@color/gray"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/delete_selected_fab"
+                        style="@style/FloatingButtonMini"
+                        android:layout_marginVertical="4dp"
+                        android:src="@drawable/ic_delete"
+                        app:fabCustomSize="48dp"
+                        app:maxImageSize="22dp"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/layout_margin_small"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:text="@string/delete_all"
+                        android:textColor="@color/gray"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/delete_all_fab"
+                        style="@style/FloatingButtonMini"
+                        android:layout_marginVertical="4dp"
+                        android:src="@drawable/ic_delete_all"
+                        app:fabCustomSize="48dp"
+                        app:maxImageSize="24dp"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/delete_fab"
+                style="@style/FloatingButtonExtended"
+                android:text="@string/delete_actions"
+                android:textColor="@color/white"
+                app:hideMotionSpec="@anim/fab_hide_anim"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@color/white"
+                app:showMotionSpec="@anim/fab_show_anim" />
+
         </FrameLayout>
 
         <Button
             android:id="@+id/button_collect_inputs"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="16dp"
-            android:textSize="20sp"
-            android:text="@string/button_collect_input_text" />
+            android:layout_marginBottom="10dp"
+            android:text="@string/button_collect_input_text"
+            android:textSize="20sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

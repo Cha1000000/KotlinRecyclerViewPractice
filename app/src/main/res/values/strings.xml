@@ -12,4 +12,7 @@
     <string name="text_input_hint">Ввести текст</string>
     <string name="result_alert_title">Результат</string>
     <string name="empty_data">Данные отсутствуют</string>
+    <string name="delete_actions">Удаление</string>
+    <string name="delete_selected">Выбранные</string>
+    <string name="delete_all">Удалить все</string>
 </resources>

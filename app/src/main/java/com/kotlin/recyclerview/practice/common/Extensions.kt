@@ -81,3 +81,7 @@ fun View.hideKeyboard(): Boolean {
     } catch (_: RuntimeException) { }
     return false
 }
+
+fun View.setVisible(visible: Boolean, invisibilityType: Int = View.GONE) {
+    visibility = if (visible) View.VISIBLE else invisibilityType
+}
