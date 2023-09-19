@@ -58,7 +58,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/delete_selected"
                         android:textColor="@color/gray"
-                        android:textSize="13sp" />
+                        android:textSize="14sp" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/delete_selected_fab"
@@ -85,7 +85,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/delete_all"
                         android:textColor="@color/gray"
-                        android:textSize="13sp" />
+                        android:textSize="14sp" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/delete_all_fab"
@@ -101,14 +101,16 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/delete_fab"
+                android:id="@+id/delete_actions_fab"
                 style="@style/FloatingButtonExtended"
                 android:text="@string/delete_actions"
                 android:textColor="@color/white"
                 app:hideMotionSpec="@anim/fab_hide_anim"
                 app:icon="@drawable/ic_delete"
                 app:iconTint="@color/white"
-                app:showMotionSpec="@anim/fab_show_anim" />
+                app:showMotionSpec="@anim/fab_show_anim"
+                android:visibility="gone"
+                tools:visibility="visible"/>
 
         </FrameLayout>
 

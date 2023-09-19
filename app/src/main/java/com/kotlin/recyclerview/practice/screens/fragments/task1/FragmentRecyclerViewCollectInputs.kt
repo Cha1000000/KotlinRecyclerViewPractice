@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -16,13 +17,31 @@ import com.kotlin.recyclerview.practice.common.setVisible
 import com.kotlin.recyclerview.practice.common.showAlertDialog
 import com.kotlin.recyclerview.practice.data.initTextInputItems
 import com.kotlin.recyclerview.practice.databinding.FragmentRecyclerviewCollectInputsBinding
+import com.kotlin.recyclerview.practice.interfaces.OnSelectedPositionsChangedListener
+import kotlin.properties.Delegates
 
-class FragmentRecyclerViewCollectInputs : Fragment() {
+class FragmentRecyclerViewCollectInputs : Fragment(), OnSelectedPositionsChangedListener {
 
     private lateinit var binding: FragmentRecyclerviewCollectInputsBinding
+    private lateinit var showAnim: Animation
+    private lateinit var hideAnim: Animation
+    private lateinit var textItemAdapter: TextInputItemsAdapter
+    private var hasSelectedItems = false
     private var textItems = initTextInputItems()
-    private val textItemAdapter = TextInputItemsAdapter()
-    private var isParentFabOpened = false
+    private var isParentFabOpened: Boolean by Delegates
+        .observable(false) { _, _, newVal ->
+            onIsParentFabOpenedChanged(newVal)
+        }
+
+    private fun onIsParentFabOpenedChanged(isOpened: Boolean) = with(binding) {
+        if (isOpened) {
+            additionalFabContainer.startAnimation(showAnim)
+            additionalFabContainer.setVisible(true)
+        } else {
+            additionalFabContainer.startAnimation(hideAnim)
+            additionalFabContainer.setVisible(false)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +54,10 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
             container,
             false
         )
+        showAnim = AnimationUtils.loadAnimation(context, R.anim.fab_show_anim)
+        hideAnim = AnimationUtils.loadAnimation(context, R.anim.fab_hide_anim)
+        textItemAdapter = TextInputItemsAdapter()
+        textItemAdapter.setOnSelectedPositionsChangedListener(this)
         initialize()
         return binding.root
     }
@@ -43,8 +66,6 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
         toolbarTask1.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_fragmentRecyclerViewCollectInputs_to_main)
         }
-        val showAnim = AnimationUtils.loadAnimation(context, R.anim.fab_show_anim)
-        val hideAnim = AnimationUtils.loadAnimation(context, R.anim.fab_hide_anim)
 
         recyclerViewTask1.apply {
             setHasFixedSize(true)
@@ -52,20 +73,13 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (!deleteFab.isVisible) return
+                    if (!deleteActionsFab.isVisible) return
                     isParentFabOpened = if (dy > 0) {
-                        deleteFab.shrink()
+                        deleteActionsFab.shrink()
                         false
                     } else {
-                        deleteFab.extend()
+                        deleteActionsFab.extend()
                         true
-                    }
-                    if (isParentFabOpened) {
-                        additionalFabContainer.startAnimation(showAnim)
-                        additionalFabContainer.setVisible(true)
-                    } else {
-                        additionalFabContainer.startAnimation(hideAnim)
-                        additionalFabContainer.setVisible(false)
                     }
                 }
             })
@@ -86,11 +100,11 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
             )
         }
 
-        deleteFab.apply {
-            //hide()
+        additionalFabContainer.visibility = deleteActionsFab.visibility
+        deleteActionsFab.apply {
+            hide()
             setOnClickListener {
                 isParentFabOpened = !isParentFabOpened
-                additionalFabContainer.setVisible(isParentFabOpened)
                 if (isParentFabOpened) extend() else shrink()
             }
         }
@@ -99,7 +113,7 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
     }
 
     private fun deleteSelectedItems() {
-        val selectedItemPositions = textItemAdapter.getSelectedItemPositions().sortedDescending()
+        val selectedItemPositions = textItemAdapter.getSelectedItemPositions().sorted()
         textItems = textItems.filterIndexed { index, _ ->
             !selectedItemPositions.contains(index)
         }
@@ -108,7 +122,27 @@ class FragmentRecyclerViewCollectInputs : Fragment() {
     }
 
     private fun deleteAll() {
-        textItemAdapter.submitList(null)
+        textItems = listOf()
+        textItemAdapter.submitList(textItems)
         textItemAdapter.clearSelections()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        textItemAdapter.removeOnSelectedPositionsChangedListener()
+    }
+
+    override fun onSelectedPositionsRangeChanged(hasItems: Boolean) = with(binding) {
+        if (hasSelectedItems == hasItems) return
+        hasSelectedItems = hasItems
+        if (hasItems) {
+            deleteActionsFab.show()
+            isParentFabOpened = true
+        } else {
+            if (isParentFabOpened) {
+                isParentFabOpened = false
+            }
+            deleteActionsFab.hide()
+        }
     }
 }

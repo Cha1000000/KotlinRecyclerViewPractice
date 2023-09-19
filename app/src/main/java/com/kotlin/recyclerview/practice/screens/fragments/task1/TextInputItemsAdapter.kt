@@ -1,5 +1,6 @@
 package com.kotlin.recyclerview.practice.screens.fragments.task1
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
@@ -11,11 +12,13 @@ import com.kotlin.recyclerview.practice.common.setBackgroundColorRes
 import com.kotlin.recyclerview.practice.common.showKeyboardImplicit
 import com.kotlin.recyclerview.practice.data.TextItemData
 import com.kotlin.recyclerview.practice.databinding.ViewholderTextinputItemBinding
+import com.kotlin.recyclerview.practice.interfaces.OnSelectedPositionsChangedListener
 
 class TextInputItemsAdapter :
     ListAdapter<TextItemData, TextInputItemsAdapter.ItemViewHolder>(ItemDiffCallback) {
 
     private val selectedPositions = mutableListOf<Int>()
+    private var listener: OnSelectedPositionsChangedListener? = null
 
     fun toggleSelection(position: Int) {
         if (selectedPositions.contains(position)) {
@@ -23,16 +26,31 @@ class TextInputItemsAdapter :
         } else {
             selectedPositions.add(position)
         }
+        listener?.onSelectedPositionsRangeChanged(hasSelections())
         notifyItemChanged(position)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun clearSelections() {
         selectedPositions.clear()
-        notifyItemRangeChanged(0, this.itemCount)
+        listener?.onSelectedPositionsRangeChanged(false)
+        notifyDataSetChanged()
     }
 
     fun getSelectedItemPositions(): List<Int> {
         return selectedPositions.toList()
+    }
+
+    fun hasSelections() = selectedPositions.isNotEmpty()
+
+    fun isItemSelected(position: Int) = selectedPositions.contains(position)
+
+    fun setOnSelectedPositionsChangedListener(listener: OnSelectedPositionsChangedListener) {
+        this.listener = listener
+    }
+
+    fun removeOnSelectedPositionsChangedListener() {
+        this.listener = null
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder =
@@ -59,16 +77,24 @@ class TextInputItemsAdapter :
             currentItem.apply {
                 setOnFocusChangeListener { _, hasFocus ->
                     if (hasFocus) {
-                        resetSelection()
+                        if (isItemSelected(itemPosition)) resetSelection()
                         textInput.requestFocus()
                     }
                 }
                 setOnClickListener {
-                    resetSelection()
-                    textInput.showKeyboardImplicit()
+                    if (hasSelections()) {
+                        if (!isItemSelected(itemPosition)) {
+                            textInput.clearFocus()
+                            toggleSelection(itemPosition)
+                        } else {
+                            resetSelection()
+                        }
+                    } else {
+                        textInput.showKeyboardImplicit()
+                    }
                 }
                 setOnLongClickListener {
-                    if (textInput.isFocused) textInput.clearFocus()
+                    textInput.clearFocus()
                     if (itemPosition != RecyclerView.NO_POSITION) {
                         toggleSelection(itemPosition)
                         true
@@ -78,13 +104,14 @@ class TextInputItemsAdapter :
                 }
             }
             textInput.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) resetSelection()
+                if (hasFocus && isItemSelected(itemPosition)) {
+                    resetSelection()
+                }
             }
         }
 
         private fun resetSelection() {
-            if (selectedPositions.isEmpty()) return
-            selectedPositions.remove(itemPosition)
+            toggleSelection(itemPosition)
             currentItem.setBackgroundColorRes(R.color.white)
         }
 
@@ -99,7 +126,7 @@ class TextInputItemsAdapter :
         }
 
         private fun toggleSelectionBackground() {
-            val backgroundColorRes = if (selectedPositions.contains(itemPosition)) {
+            val backgroundColorRes = if (isItemSelected(itemPosition)) {
                 R.color.selectedItemBackground
             } else {
                 R.color.white
