@@ -82,6 +82,7 @@ class TextInputItemsAdapter :
                     }
                 }
                 setOnClickListener {
+                    itemPosition = adapterPosition
                     if (hasSelections()) {
                         if (!isItemSelected(itemPosition)) {
                             textInput.clearFocus()
@@ -95,6 +96,7 @@ class TextInputItemsAdapter :
                 }
                 setOnLongClickListener {
                     textInput.clearFocus()
+                    itemPosition = adapterPosition
                     if (itemPosition != RecyclerView.NO_POSITION) {
                         toggleSelection(itemPosition)
                         true
