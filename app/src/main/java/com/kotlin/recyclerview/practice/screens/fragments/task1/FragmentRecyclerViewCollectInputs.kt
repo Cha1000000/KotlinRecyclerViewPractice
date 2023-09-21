@@ -2,10 +2,12 @@ package com.kotlin.recyclerview.practice.screens.fragments.task1
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -26,6 +28,7 @@ class FragmentRecyclerViewCollectInputs : Fragment(), OnSelectedPositionsChanged
     private lateinit var showAnim: Animation
     private lateinit var hideAnim: Animation
     private lateinit var textItemAdapter: TextInputItemsAdapter
+    private var lastFocusedView: View? = null
     private var hasSelectedItems = false
     private var textItems = initTextInputItems()
     private var isParentFabOpened: Boolean by Delegates
@@ -68,7 +71,6 @@ class FragmentRecyclerViewCollectInputs : Fragment(), OnSelectedPositionsChanged
         }
 
         recyclerViewTask1.apply {
-            setHasFixedSize(true)
             adapter = textItemAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -83,11 +85,27 @@ class FragmentRecyclerViewCollectInputs : Fragment(), OnSelectedPositionsChanged
                     }
                 }
             })
+            addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                    if (e.action == MotionEvent.ACTION_DOWN) {
+                        val view = rv.findChildViewUnder(e.x, e.y)
+                        if (view != null && view is CardView) {
+                            lastFocusedView = view
+                        }
+                    }
+                    return false
+                }
+
+                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+
+                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+            })
         }
         textItemAdapter.submitList(textItems)
 
         buttonCollectInputs.setOnClickListener { button ->
             button.hideKeyboard()
+            lastFocusedView?.clearFocus()
             var collectedText = ""
             val dataList = textItemAdapter.currentList.toList()
             dataList.onEachIndexed { index, textItemData ->
@@ -139,10 +157,10 @@ class FragmentRecyclerViewCollectInputs : Fragment(), OnSelectedPositionsChanged
             deleteActionsFab.show()
             isParentFabOpened = true
         } else {
+            deleteActionsFab.hide()
             if (isParentFabOpened) {
                 isParentFabOpened = false
             }
-            deleteActionsFab.hide()
         }
     }
 }

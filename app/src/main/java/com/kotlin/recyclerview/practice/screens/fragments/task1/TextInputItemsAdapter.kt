@@ -118,8 +118,8 @@ class TextInputItemsAdapter :
         }
 
         fun bind(textItem: TextItemData) {
-            itemPosition = adapterPosition
             currentItemInput = textItem
+            itemPosition = adapterPosition
             textInput.setText(currentItemInput!!.text)
             textInput.addTextChangedListener { currentItemInput!!.text = it.toString() }
             if (itemPosition == adapterPosition) {
@@ -144,5 +144,5 @@ object ItemDiffCallback : DiffUtil.ItemCallback<TextItemData>() {
         oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: TextItemData, newItem: TextItemData) =
-        oldItem == newItem
+        oldItem.id == newItem.id && oldItem.text == newItem.text
 }
