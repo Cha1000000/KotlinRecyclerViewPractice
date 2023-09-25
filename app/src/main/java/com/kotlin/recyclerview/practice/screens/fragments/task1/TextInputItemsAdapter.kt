@@ -70,7 +70,6 @@ class TextInputItemsAdapter :
 
         private val currentItem = binding.textInputContainer
         private val textInput = binding.textInputText
-        private var currentItemInput: TextItemData? = null
         private var itemPosition: Int = -1
 
         init {
@@ -110,6 +109,7 @@ class TextInputItemsAdapter :
                     resetSelection()
                 }
             }
+            textInput.addTextChangedListener { currentList[adapterPosition].text = it.toString() }
         }
 
         private fun resetSelection() {
@@ -118,10 +118,8 @@ class TextInputItemsAdapter :
         }
 
         fun bind(textItem: TextItemData) {
-            currentItemInput = textItem
             itemPosition = adapterPosition
-            textInput.setText(currentItemInput!!.text)
-            textInput.addTextChangedListener { currentItemInput!!.text = it.toString() }
+            textInput.setText(textItem.text)
             if (itemPosition == adapterPosition) {
                 toggleSelectionBackground()
             }
