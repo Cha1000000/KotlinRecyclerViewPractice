@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/fragmentMainSelectTask">
+
+    <fragment
+        android:id="@+id/fragmentMainSelectTask"
+        android:name="com.kotlin.recyclerview.practice.screens.fragments.home.FragmentMainSelectTask"
+        android:label="FragmentMainSelectTask"
+        tools:layout="@layout/fragment_main_select_task">
+        <action
+            android:id="@+id/action_main_to_fragmentRecyclerViewCollectInputs"
+            app:destination="@id/fragmentRecyclerViewCollectInputs" />
+        <action
+            android:id="@+id/action_main_to_fragmentRecyclerViewWithAddDeleteRefresh"
+            app:destination="@id/fragmentRecyclerViewWithAddDeleteRefresh" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRecyclerViewCollectInputs"
+        android:name="com.kotlin.recyclerview.practice.screens.fragments.task1.FragmentRecyclerViewCollectInputs"
+        android:label="FragmentRecyclerViewCollectInputs"
+        tools:layout="@layout/fragment_recyclerview_collect_inputs" >
+        <action
+            android:id="@+id/action_fragmentRecyclerViewCollectInputs_to_main"
+            app:destination="@id/fragmentMainSelectTask" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRecyclerViewWithAddDeleteRefresh"
+        android:name="com.kotlin.recyclerview.practice.screens.fragments.task2.FragmentRecyclerViewWithAddDeleteRefresh"
+        android:label="FragmentRecyclerViewWithAddDeleteRefresh"
+        tools:layout="@layout/fragment_recyclerview_with_add_delete_refresh">
+        <action
+            android:id="@+id/action_fragmentRecyclerViewWithAddDeleteRefresh_to_main"
+            app:destination="@id/fragmentMainSelectTask" />
+    </fragment>
+</navigation>
