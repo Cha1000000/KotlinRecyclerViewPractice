@@ -52,8 +52,10 @@ dependencies {
     implementation("androidx.databinding:databinding-runtime:8.1.1")
 
     // Navigation
-    val versionNavigation = "2.7.2"
+    val versionNavigation = "2.7.3"
     implementation ("androidx.navigation:navigation-fragment-ktx:$versionNavigation")
     implementation ("androidx.navigation:navigation-ui-ktx:$versionNavigation")
 
+    // Swipe to delete
+    implementation ("it.xabaras.android:recyclerview-swipedecorator:1.4")
 }

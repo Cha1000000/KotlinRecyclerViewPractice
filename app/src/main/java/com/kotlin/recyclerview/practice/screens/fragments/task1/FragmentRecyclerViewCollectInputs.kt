@@ -17,7 +17,7 @@ import com.kotlin.recyclerview.practice.R
 import com.kotlin.recyclerview.practice.common.hideKeyboard
 import com.kotlin.recyclerview.practice.common.setVisible
 import com.kotlin.recyclerview.practice.common.showAlertDialog
-import com.kotlin.recyclerview.practice.data.initTextInputItems
+import com.kotlin.recyclerview.practice.data.createTextInputList
 import com.kotlin.recyclerview.practice.databinding.FragmentRecyclerviewCollectInputsBinding
 import com.kotlin.recyclerview.practice.interfaces.OnSelectedPositionsChangedListener
 import kotlin.properties.Delegates
@@ -30,7 +30,7 @@ class FragmentRecyclerViewCollectInputs : Fragment(), OnSelectedPositionsChanged
     private lateinit var textItemAdapter: TextInputItemsAdapter
     private var lastFocusedView: View? = null
     private var hasSelectedItems = false
-    private var textItems = initTextInputItems()
+    private var textItems = createTextInputList()
     private var isParentFabOpened: Boolean by Delegates
         .observable(false) { _, _, newVal ->
             onIsParentFabOpenedChanged(newVal)

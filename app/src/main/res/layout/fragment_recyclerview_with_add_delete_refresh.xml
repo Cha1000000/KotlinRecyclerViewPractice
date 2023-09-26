@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
+        android:id="@+id/recycler_view_task_2_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorOnBackground"
@@ -16,6 +17,34 @@
             style="@style/AppToolbar"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/task2_screen_title" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_task_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="2dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:itemCount="10"
+                tools:listitem="@layout/viewholder_uuid_item" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_button"
+                style="@style/FloatingButtonMini"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:src="@drawable/ic_add"
+                android:backgroundTint="@color/accent"
+                app:fabCustomSize="48dp"
+                app:maxImageSize="24dp"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
 
     </LinearLayout>
 
