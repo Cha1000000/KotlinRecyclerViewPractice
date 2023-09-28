@@ -13,6 +13,8 @@ class UuidItemsViewModel(val dataSource: DataSource) : ViewModel() {
     fun deleteUuid(uuidItem: UuidItem) = dataSource.removeUuid(uuidItem)
 
     fun refreshUuid(uuidItem: UuidItem) = dataSource.refreshUuid(uuidItem)
+
+    fun refreshAll() = dataSource.createNewSource()
 }
 
 class UuidsListViewModelFactory() : ViewModelProvider.Factory {

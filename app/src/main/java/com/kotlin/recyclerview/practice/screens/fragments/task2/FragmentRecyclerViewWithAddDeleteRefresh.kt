@@ -62,7 +62,11 @@ class FragmentRecyclerViewWithAddDeleteRefresh : Fragment() {
                 recyclerViewTask2.smoothScrollToPosition(it.size)
             }
         }
-        addButton.setOnClickListener { uuidItemsViewModel.insertUuid() }
+        recyclerViewTask2SwipeRefresh.setOnRefreshListener {
+            uuidItemsViewModel.refreshAll()
+            recyclerViewTask2SwipeRefresh.isRefreshing = false
+        }
+        recyclerViewTask2AddButton.setOnClickListener { uuidItemsViewModel.insertUuid() }
     }
 
 }

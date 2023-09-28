@@ -58,4 +58,7 @@ dependencies {
 
     // Swipe to delete
     implementation ("it.xabaras.android:recyclerview-swipedecorator:1.4")
+
+    // Swipe to refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 }

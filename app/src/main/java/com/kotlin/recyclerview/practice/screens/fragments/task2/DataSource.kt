@@ -45,6 +45,8 @@ class DataSource {
         uuidsLiveData.postValue(newList)
     }
 
+    fun createNewSource() = uuidsLiveData.postValue(createUuidsList())
+
     fun getUuidList() : LiveData<List<UuidItem>> = uuidsLiveData
 
     companion object {
