@@ -1,7 +1,10 @@
 package com.kotlin.recyclerview.practice.screens.fragments.task2
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,13 +33,22 @@ class UuidItemsAdapter(private val onRefreshClickCallback: (UuidItem) -> Unit) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("ClickableViewAccessibility")
         fun bind(item: UuidItem) = with(binding) {
             uuidTextWithImage.text = item.uuid
-            uuidTextWithImage.setOnClickListener {
-                val refreshButton = uuidTextWithImage.compoundDrawables[2]
-                if (refreshButton != null) {
-                    onRefreshClick(item)
+            uuidTextWithImage.setOnTouchListener { v, event ->
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    val refreshButton = (v as TextView).compoundDrawables[2]
+                    val x = event.x.toInt()
+                    val y = event.y.toInt()
+                    if (refreshButton != null && x >= v.width - v.totalPaddingRight
+                        && x <= v.width - v.paddingRight
+                        && y >= v.paddingTop && y <= v.height - v.paddingBottom) {
+                        onRefreshClick(item)
+                        return@setOnTouchListener true
+                    }
                 }
+                false
             }
         }
     }
