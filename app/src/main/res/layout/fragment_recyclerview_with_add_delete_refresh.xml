@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/recycler_view_task_2_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorOnBackground"
+        android:orientation="vertical"
+        tools:context=".screens.fragments.task2.FragmentRecyclerViewWithAddDeleteRefresh">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_task_2"
+            style="@style/AppToolbar"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/task2_screen_title" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/recycler_view_task_2_swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_task_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="2dp"
+                    app:layoutManager="LinearLayoutManager"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/viewholder_uuid_item" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/recycler_view_task_2_add_button"
+                    style="@style/FloatingButtonMini"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="@dimen/fab_margin"
+                    android:layout_marginBottom="@dimen/fab_margin"
+                    android:backgroundTint="@color/accent"
+                    android:src="@drawable/ic_add"
+                    app:fabCustomSize="48dp"
+                    app:maxImageSize="24dp"
+                    tools:ignore="ContentDescription" />
+
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+</layout>

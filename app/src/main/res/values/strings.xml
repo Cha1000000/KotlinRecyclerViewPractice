@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">KotlinRecyclerViewPractice</string>
+    <string name="app_title">RecyclerView Практика</string>
+    <string name="select_task_text">Выбери задание</string>
+    <string name="task1_label_title">Сбор ввода данных из айтемов RecyclerView</string>
+    <string name="task2_label_title">RecyclerView с добавлением, удалением и обновлением данных</string>
+    <string name="task1_screen_title">Сбор ввода данных</string>
+    <string name="task2_screen_title">Добавить, удалить, обновить</string>
+    <string name="button_task1_text">Задание 1</string>
+    <string name="button_task2_text">Задание 2</string>
+    <string name="button_collect_input_text">Собрать ввод</string>
+    <string name="text_input_hint">Ввести текст</string>
+    <string name="result_alert_title">Результат</string>
+    <string name="empty_data">Данные отсутствуют</string>
+    <string name="delete_actions">Удаление</string>
+    <string name="delete_selected">Выбранные</string>
+    <string name="delete_all">Удалить все</string>
 </resources>

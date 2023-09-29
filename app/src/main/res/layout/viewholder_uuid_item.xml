@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/uuid_text_with_image"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/uuid_item_padding"
+    android:drawablePadding="@dimen/layout_margin_small"
+    android:fontFamily="@font/andika_new_basic"
+    android:textSize="14sp"
+    android:textStyle="bold"
+    tools:text="CDCD5ED5-6213-4BDC-916D-B617CF0E7C60"
+    app:drawableRightCompat="@drawable/ic_refresh" />
